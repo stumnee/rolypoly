@@ -1,5 +1,13 @@
 extends layout
 
 block content
-  h1= title
-  p Welcome to #{title}
+  p Please enter your text below
+  form(action='/api/v1.0/transform', method='post')
+    textarea(name='text')
+    div
+      input(type='button', value='transform')
+script(src='javascripts/transform.js')
+script.
+  $(document).ready(function() {
+    alert(1);
+  });
