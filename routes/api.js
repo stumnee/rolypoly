@@ -10,18 +10,17 @@ router.post('/transform', function(req, res) {
 		html = '';
 
 		if (spacesRemoved == 0) {
-			return;
+			return '';
 		}
 
 		var correction = {position: position};
-
 		if (spacesRemoved > 0) {
-			html = '<span class="removed">' + Array(spacesRemoved).join('-') + '</span>';
+			html = '<span class="removed">' + Array(spacesRemoved + 1).join('-') + '</span>';
 			correction.position -= spacesRemoved;
 			correction.spacesRemoved = spacesRemoved;
 		} else {
 			correction.spacesAdded = Math.abs(spacesRemoved);
-			html = '<span class="added">' + Array(correction.spacesAdded).join('+') + '</span>';
+			html = '<span class="added">' + Array(correction.spacesAdded + 1).join('+') + '</span>';
 		}
 
 		corrections.push(correction);
@@ -39,7 +38,6 @@ router.post('/transform', function(req, res) {
 	
 	//loop through every character the original text	
 	while ((c = original.charAt(i++)) != '') {
-		console.log(c);
 		if (c == ' ' || c == '\t') {
 			spaces += c;
 			continue;
@@ -51,7 +49,7 @@ router.post('/transform', function(req, res) {
 		}
 
 		if (transformed.charAt(transformed.length - 1) == ',') {
-			diff += setCorrection(i, 1 - spaces.length);
+			diff += setCorrection(i, spaces.length - 1);
 			spaces = ' ';
 		}
 
