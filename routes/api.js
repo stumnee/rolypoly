@@ -50,7 +50,8 @@ router.post('/transform', function(req, res) {
 
 		if (transformed.charAt(transformed.length - 1) == ',') {
 			diff += setCorrection(i, spaces.length - 1);
-			spaces = ' ';
+			spaces = '';
+			transformed += ' ';
 		}
 
 		diff += spaces + c;
